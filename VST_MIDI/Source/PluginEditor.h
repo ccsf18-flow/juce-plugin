@@ -16,7 +16,8 @@
 //==============================================================================
 /**
 */
-class Vst_midiAudioProcessorEditor  : public AudioProcessorEditor
+class Vst_midiAudioProcessorEditor  : public AudioProcessorEditor,
+                                      private Slider::Listener
 {
 public:
     Vst_midiAudioProcessorEditor (Vst_midiAudioProcessor&);
@@ -27,9 +28,12 @@ public:
     void resized() override;
 
 private:
+    void sliderValueChanged (Slider* slider) override;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     Vst_midiAudioProcessor& processor;
+    
+    Slider midiVolume;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Vst_midiAudioProcessorEditor)
 };

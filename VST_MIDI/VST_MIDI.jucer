@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="F6vYma" name="VST_MIDI" projectType="audioplug" jucerVersion="5.3.2"
               pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn"
-              pluginManufacturer="FLOW">
+              pluginManufacturer="FLOW" pluginVSTCategory="kPlugCategEffect">
   <MAINGROUP id="CAITBN" name="VST_MIDI">
     <GROUP id="{A2B2B30F-8233-9850-4001-53BF898E0539}" name="Source">
       <FILE id="c48zBf" name="PluginProcessor.cpp" compile="1" resource="0"

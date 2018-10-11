@@ -47,6 +47,7 @@ public:
     //==============================================================================
     int getNumPrograms() override;
     int getCurrentProgram() override;
+    float noteOnVel;
     void setCurrentProgram (int index) override;
     const String getProgramName (int index) override;
     void changeProgramName (int index, const String& newName) override;
