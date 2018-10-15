@@ -135,12 +135,13 @@ void Vst_midiAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
     MidiBuffer processedMidi;
     int time;
     MidiMessage m;
+    //Basic iterate strucutre for note buffer
     for (MidiBuffer::Iterator i (midiMessages); i.getNextEvent (m, time);)
     {
         if (m.isNoteOn())
         {
             uint8 newVel = (uint8)noteOnVel;
-            m = MidiMessage::noteOn(m.getChannel(), m.getNoteNumber(), newVel);
+            m = MidiMessage::noteOn(m.getChannel(), m.getNoteNumber(), newVel); //Add properties to new note -> We probably care about getNoteNumber()
         }
         else if (m.isNoteOff())
         {
@@ -151,8 +152,10 @@ void Vst_midiAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
         else if (m.isPitchWheel())
         {
         }
+        //add event adds note to buffer
         processedMidi.addEvent (m, time);
     }
+    //Buffers have to be switched due to some memory safety issue  
     midiMessages.swapWith (processedMidi);
 }
 
