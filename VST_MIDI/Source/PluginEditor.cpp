@@ -49,7 +49,7 @@ void Vst_midiAudioProcessorEditor::paint (Graphics& g)
 
     g.setColour (Colours::black);
     g.setFont (15.0f);
-    g.drawFittedText ("A slider or something...", getLocalBounds(), Justification::centred, 1);
+    g.drawFittedText ("V1.0", getLocalBounds(), Justification::centred, 1);
 }
 
 void Vst_midiAudioProcessorEditor::sliderValueChanged (Slider* slider)

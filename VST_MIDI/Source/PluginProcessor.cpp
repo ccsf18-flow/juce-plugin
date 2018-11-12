@@ -10,6 +10,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "socket_handle.cpp"
 
 //==============================================================================
 Vst_midiAudioProcessor::Vst_midiAudioProcessor()
@@ -24,6 +25,7 @@ Vst_midiAudioProcessor::Vst_midiAudioProcessor()
                        )
 #endif
 {
+    start_threads();
 }
 
 Vst_midiAudioProcessor::~Vst_midiAudioProcessor()
@@ -155,8 +157,17 @@ void Vst_midiAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
         //add event adds note to buffer
         processedMidi.addEvent (m, time);
     }
-    //Buffers have to be switched due to some memory safety issue  
+    //Buffers have to be switched due to some memory safety issue
+    if(m.getNoteNumber() < 247 && m.getNoteNumber() > 0){
+        beat_msg msg = {static_cast<uint8_t>((m.getNoteNumber())), 100};
+        queue_message(1, 200, msg);
+    }
     midiMessages.swapWith (processedMidi);
+    
+    /*
+        Angle -> arduino
+     
+     */
 }
 
 //==============================================================================
@@ -173,9 +184,7 @@ AudioProcessorEditor* Vst_midiAudioProcessor::createEditor()
 //==============================================================================
 void Vst_midiAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    
 }
 
 void Vst_midiAudioProcessor::setStateInformation (const void* data, int sizeInBytes)

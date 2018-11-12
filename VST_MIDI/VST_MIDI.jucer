@@ -3,9 +3,13 @@
 <JUCERPROJECT id="F6vYma" name="VST_MIDI" projectType="audioplug" jucerVersion="5.3.2"
               pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn"
               pluginManufacturer="FLOW" pluginVSTCategory="kPlugCategEffect"
-              pluginFormats="buildVST,enableIAA">
+              pluginFormats="buildVST3,enableIAA">
   <MAINGROUP id="CAITBN" name="VST_MIDI">
     <GROUP id="{A2B2B30F-8233-9850-4001-53BF898E0539}" name="Source">
+      <FILE id="Z48xPT" name="socket_handle.cpp" compile="1" resource="0"
+            file="Source/socket_handle.cpp"/>
+      <FILE id="mzNSCl" name="socket_handle.hpp" compile="0" resource="0"
+            file="Source/socket_handle.hpp"/>
       <FILE id="c48zBf" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="FtJxEh" name="PluginProcessor.h" compile="0" resource="0"
@@ -22,21 +26,21 @@
         <CONFIGURATION isDebug="0" name="Release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_video" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_opengl" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../../../../../../opt/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2017 targetFolder="Builds/VisualStudio2017">
@@ -82,7 +86,7 @@
         <MODULEPATH id="juce_audio_formats" path="../../juce"/>
         <MODULEPATH id="juce_audio_devices" path="../../juce"/>
         <MODULEPATH id="juce_audio_basics" path="../../juce"/>
-        <MODULEPATH id="juce_gui_extra" path="../../../../../../../opt/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../juce"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
