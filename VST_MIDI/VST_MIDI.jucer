@@ -6,6 +6,12 @@
               pluginFormats="buildVST3,enableIAA">
   <MAINGROUP id="CAITBN" name="VST_MIDI">
     <GROUP id="{A2B2B30F-8233-9850-4001-53BF898E0539}" name="Source">
+      <FILE id="hqs6yl" name="message_handle.cpp" compile="1" resource="0"
+            file="Source/message_handle.cpp"/>
+      <FILE id="M0dfrI" name="TPCircularBuffer.cpp" compile="1" resource="0"
+            file="Source/TPCircularBuffer.cpp"/>
+      <FILE id="qjjOIJ" name="TPCircularBuffer.h" compile="0" resource="0"
+            file="Source/TPCircularBuffer.h"/>
       <FILE id="Z48xPT" name="socket_handle.cpp" compile="1" resource="0"
             file="Source/socket_handle.cpp"/>
       <FILE id="mzNSCl" name="socket_handle.hpp" compile="0" resource="0"

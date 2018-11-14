@@ -1,3 +1,6 @@
+extern "C" {
+    #include "TPCircularBuffer.h"
+}
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/socket.h>

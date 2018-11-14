@@ -144,9 +144,15 @@ void Vst_midiAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
         {
             uint8 newVel = (uint8)noteOnVel;
             m = MidiMessage::noteOn(m.getChannel(), m.getNoteNumber(), newVel); //Add properties to new note -> We probably care about getNoteNumber()
+            if(m.getNoteNumber() < 247 && m.getNoteNumber() > 0){
+                beat_msg msg = {static_cast<uint8_t>((m.getNoteNumber())), 100};
+                queue_message(1, 200, msg);
+            }
         }
         else if (m.isNoteOff())
         {
+            beat_msg msg = {static_cast<uint8_t>((m.getNoteNumber())), 100};
+            queue_message(2, 200, msg);
         }
         else if (m.isAftertouch())
         {
@@ -158,10 +164,6 @@ void Vst_midiAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
         processedMidi.addEvent (m, time);
     }
     //Buffers have to be switched due to some memory safety issue
-    if(m.getNoteNumber() < 247 && m.getNoteNumber() > 0){
-        beat_msg msg = {static_cast<uint8_t>((m.getNoteNumber())), 100};
-        queue_message(1, 200, msg);
-    }
     midiMessages.swapWith (processedMidi);
     
     /*

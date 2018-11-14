@@ -13,7 +13,7 @@ struct sockaddr_in address;
 int sock = 0, valread;
 struct sockaddr_in serv_addr;
 char buffer[1024] = {0};
-
+TPCircularBuffer msg_buffer;
 
 template<typename T>
 bool queue_message(uint8_t tag, uint64_t ms, T gen_msg){
@@ -22,27 +22,35 @@ bool queue_message(uint8_t tag, uint64_t ms, T gen_msg){
         case 1:
             msg_out = {tag, ms, gen_msg};
             break;
+        case 2:
+            msg_out = {tag, ms, gen_msg};
+            break;
     }
-    out_msgs.push(msg_out);
+    msg_out = {tag, ms, gen_msg};
+    //out_msgs.push(msg_out);
+    TPCircularBufferProduceBytes(&msg_buffer, &msg_out, sizeof(msg_out));
     msg_sem.notify();
     return true;
 }
 
 void start_threads(){
+    TPCircularBufferInit(&msg_buffer, 2048);
     pthread_t read_thread;
+    printf("Starting threads\n");
     pthread_create(&read_thread, NULL, thread_routine, NULL);
 }
 
 template<typename T>
 bool send_message(uint8_t tag, uint64_t ms, T gen_msg){
     msg msg_out;
+    printf("Sending message with tag %d\n", tag);
     switch(tag){
         case 1:
             msg_out = {tag, ms, gen_msg};
             break;
+        case 2:
+            msg_out = {tag, ms, gen_msg};
     }
-
-    uint32_t x = 15;
     send(sock , &msg_out, sizeof(struct msg) , 0 );
     return 1;
 }
@@ -74,9 +82,21 @@ void * thread_routine(void * args){
     
     while(1){
         msg_sem.wait();
-        msg msg_out = out_msgs.back();
-        out_msgs.pop();
-        send_message(1, 1, msg_out.data_msg);
+        uint32_t bytes_to_read;
+        printf("We have %d bytes to read initially\n", bytes_to_read);
+        msg * msg_out = (msg*) TPCircularBufferTail(&msg_buffer, &bytes_to_read);
+        send_message(msg_out->tag, 1, msg_out->data_msg);
+        TPCircularBufferConsume(&msg_buffer, sizeof(*msg_out));
+        /*
+        while (bytes_to_read != 0) {
+            printf("Goin around\n");
+            msg * msg_out = (msg*) TPCircularBufferTail(&msg_buffer, &bytes_to_read);
+            send_message(msg_out->tag, 1, msg_out->data_msg);
+            TPCircularBufferConsume(&msg_buffer, sizeof(*msg_out));
+            msg_out = (msg*) TPCircularBufferTail(&msg_buffer, &bytes_to_read);
+        }
+         
+        */
     }
 }
 
