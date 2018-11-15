@@ -14,6 +14,8 @@ int sock = 0, valread;
 struct sockaddr_in serv_addr;
 char buffer[1024] = {0};
 TPCircularBuffer msg_buffer;
+pthread_mutex_t lock;
+bool started = false;
 
 template<typename T>
 bool queue_message(uint8_t tag, uint64_t ms, T gen_msg){
@@ -56,6 +58,11 @@ bool send_message(uint8_t tag, uint64_t ms, T gen_msg){
 }
 
 void * thread_routine(void * args){
+    pthread_mutex_lock(&lock);
+    if(started)
+        return 0;
+    started = true;
+    pthread_mutex_unlock(&lock);
     if ((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0)
     {
         printf("\n Socket creation error \n");

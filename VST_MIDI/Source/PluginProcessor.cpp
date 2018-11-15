@@ -148,6 +148,7 @@ void Vst_midiAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
                 beat_msg msg = {static_cast<uint8_t>((m.getNoteNumber())), 100};
                 queue_message(1, 200, msg);
             }
+            printf("Going with channel %d\n", m.getChannel());
         }
         else if (m.isNoteOff())
         {

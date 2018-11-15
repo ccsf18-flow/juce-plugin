@@ -146,7 +146,7 @@ static __inline__ __attribute__((always_inline)) void* TPCircularBufferTail(TPCi
 /*!
  * Consume bytes in buffer
  *
- *  This frees up the just-read bytes, ready for writing again.
+ *  This frees up the just-read bytes, ready for writing again.asdf
  *
  * @param buffer Circular buffer
  * @param amount Number of bytes to consume
